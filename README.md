@@ -12,7 +12,9 @@ You should use this plugin together with the [apt cookbook](https://github.com/o
 
 # Installing
 
-You should use the [ohai cookbook](https://github.com/opscode-cookbooks/ohai) to install these plugins. It requires [a pull request](https://github.com/opscode-cookbooks/ohai/pull/3) to be merged. Then you can add this cookbook to the node's runlist and add this configuration to the node (or role):
+*NOTE: This plugin now requires Ohai >= v7.0, available with Chef client versions >= v0.12.0*
+
+You should use the [ohai cookbook](https://github.com/opscode-cookbooks/ohai) to install these plugins. Then you can add this cookbook to the node's runlist and add this configuration to the node (or role):
 
     "default_attributes": {
       "ohai": {
@@ -24,7 +26,7 @@ You should use the [ohai cookbook](https://github.com/opscode-cookbooks/ohai) to
 
 # Using
 
-This plugin provides `system_packages` to OHAI. It has three sub-sections:
+This plugin provides `system_packages` to OHAI. It has four sub-sections:
 
     {
       'system_packages': {
@@ -43,13 +45,18 @@ This plugin provides `system_packages` to OHAI. It has three sub-sections:
         },
         'holding': [
           'linux-image-2.6'
-        ]
+        ],
+        'security': [
+          'apache2'
+        ],
       }
     }
 
 The `installed` section lists all currently installed packages together with their current version number and their status. This status is dependent on the operating system family used. On Debian-like systems, it should normally be `'installed'`. If it is something other, things might be broken (e.g. when the package manager couldn't finish configuration).
 
 The `upgradeable` section lists all packages which could be upgraded with a `apt-get dist-upgrade` together with the versions they would be upgraded to.
+
+The `security` section lists all packages which come from a security repository (e.g. `trusty-security`).
 
 Finally, the `holding` section contains an array of all the package names that are set to hold and are not automatically upgraded.
 
