@@ -1,3 +1,4 @@
+name             "ohai-system_packages"
 maintainer       "Finn GmbH"
 maintainer_email "info@finn.de"
 license          "MIT"
